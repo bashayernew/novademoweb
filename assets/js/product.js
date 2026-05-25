@@ -1,15 +1,23 @@
 /* Product detail page */
-document.addEventListener("DOMContentLoaded", function () {
-  var params = new URLSearchParams(location.search);
-  var id = params.get("id");
+function initProductPage() {
+  var id = window.readProductId();
   var root = document.getElementById("pdp");
   if (!root) return;
 
   var p = window.findProduct(id);
   if (!p) {
-    root.innerHTML = '<div style="padding:80px 0;text-align:center"><h2>Product not found</h2><p><a href="shop.html">← Back to shop</a></p></div>';
+    root.innerHTML =
+      '<div style="padding:80px 0;text-align:center">' +
+        '<h2>Product not found</h2>' +
+        '<p class="muted" style="margin:12px 0 20px">' +
+          (id ? 'We couldn\u2019t find a product matching \u201c' + id + '\u201d.' : 'No product was selected.') +
+        '</p>' +
+        '<a class="btn btn-primary" href="shop.html">Back to shop</a>' +
+      '</div>';
     return;
   }
+
+  try { sessionStorage.setItem("lume_product_id", p.id); } catch (e) {}
 
   document.title = p.name + " — Lumé Beauty";
   var crumb = document.getElementById("crumb-name");
@@ -202,4 +210,9 @@ document.addEventListener("DOMContentLoaded", function () {
     relSection.hidden = false;
     window.renderProducts(relGrid, related);
   }
+}
+
+document.addEventListener("DOMContentLoaded", initProductPage);
+window.addEventListener("pageshow", function (e) {
+  if (e.persisted) initProductPage();
 });

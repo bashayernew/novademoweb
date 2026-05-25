@@ -90,16 +90,21 @@
 
     var toggle = document.getElementById("menu-toggle");
     var nav = document.getElementById("main-nav");
+    function closeNav() {
+      if (nav) nav.classList.remove("mobile-open");
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+    }
     if (toggle && nav) {
-      toggle.addEventListener("click", function () {
+      toggle.addEventListener("click", function (e) {
+        e.stopPropagation();
         var open = nav.classList.toggle("mobile-open");
         toggle.setAttribute("aria-expanded", open ? "true" : "false");
       });
+      nav.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", closeNav);
+      });
       document.addEventListener("click", function (e) {
-        if (!el.contains(e.target)) {
-          nav.classList.remove("mobile-open");
-          toggle.setAttribute("aria-expanded", "false");
-        }
+        if (!el.contains(e.target)) closeNav();
       });
     }
     updateCounts();

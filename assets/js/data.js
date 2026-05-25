@@ -340,5 +340,21 @@ window.PRODUCTS = [
     optionType: null, options: [] },
 ];
 
-window.findProduct = function(id){ return (window.PRODUCTS||[]).find(function(p){return p.id===id;})||null; };
+window.findProduct = function(id){
+  if (id == null || id === "") return null;
+  id = String(id).trim();
+  return (window.PRODUCTS||[]).find(function(p){ return p.id === id; }) || null;
+};
+window.readProductId = function() {
+  var params = new URLSearchParams(location.search);
+  var id = params.get("id");
+  if (!id && location.hash) {
+    id = decodeURIComponent(location.hash.slice(1));
+    if (id.indexOf("id=") === 0) id = id.slice(3);
+  }
+  if (!id) {
+    try { id = sessionStorage.getItem("lume_product_id"); } catch (e) {}
+  }
+  return id ? String(id).trim() : "";
+};
 window.categoryLabel = function(key){ var c=(window.CATEGORIES||[]).find(function(c){return c.key===key;}); return c?c.label:key; };

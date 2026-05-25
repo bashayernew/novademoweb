@@ -22,10 +22,11 @@
   }
 
   window.productCardHTML = function (p) {
+    var href = "product.html?id=" + encodeURIComponent(p.id) + "#" + encodeURIComponent(p.id);
     var badge = p.badge ? '<span class="card-badge">' + p.badge + "</span>" : "";
     return (
       '<article class="card" data-id="' + p.id + '">' +
-        '<a class="card-link" href="product.html?id=' + p.id + '">' +
+        '<a class="card-link" href="' + href + '">' +
           '<div class="card-media" style="' + media(p.grad) + '">' +
             window.productMedia(p) + badge +
           "</div>" +
@@ -45,6 +46,13 @@
   // Render a list of products into a container and wire wishlist buttons.
   window.renderProducts = function (container, products) {
     container.innerHTML = products.map(window.productCardHTML).join("");
+    container.querySelectorAll(".card").forEach(function (card) {
+      var id = card.getAttribute("data-id");
+      card.addEventListener("click", function (e) {
+        if (e.target.closest(".card-wish")) return;
+        try { sessionStorage.setItem("lume_product_id", id); } catch (err) {}
+      });
+    });
     container.querySelectorAll(".card-wish").forEach(function (btn) {
       var id = btn.getAttribute("data-id");
       if (window.Lume.isWished(id)) btn.classList.add("active");
