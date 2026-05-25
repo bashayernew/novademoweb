@@ -67,71 +67,44 @@
       '<div class="announce">Complimentary shipping on orders over $50 — always cruelty-free</div>' +
       '<header class="site-header">' +
         '<div class="container header-inner">' +
-          '<button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false">' + ICON_MENU + '</button>' +
+          '<button class="menu-toggle" id="menu-toggle" aria-label="Menu" aria-expanded="false">' + ICON_MENU + '</button>' +
           '<a class="brand" href="index.html">lumé<span>.</span></a>' +
           '<nav class="nav" id="main-nav">' +
-            link("index.html",               "Home",          active === "home") +
-            link("shop.html",                "Shop All",      active === "shop") +
-            link("shop.html?cat=makeup",     "Makeup",        false) +
-            link("shop.html?cat=skincare",   "Skincare",      false) +
-            link("shop.html?cat=accessories","Accessories",   false) +
-            link("shop.html?cat=nails",      "Nails",         false) +
-            link("shop.html?cat=hair",       "Hair",          false) +
-            link("shop.html?cat=lenses",     "Lenses",        false) +
-            link("experience.html",          "✦ Experiences", active === "experience") +
-            link("about.html",               "About",         active === "about") +
+            link("index.html",               "Home",           active === "home") +
+            link("shop.html",                "Shop All",       active === "shop") +
+            link("shop.html?cat=makeup",     "Makeup",         false) +
+            link("shop.html?cat=skincare",   "Skincare",       false) +
+            link("shop.html?cat=accessories","Accessories",    false) +
+            link("shop.html?cat=nails",      "Nails",          false) +
+            link("shop.html?cat=hair",       "Hair",           false) +
+            link("shop.html?cat=lenses",     "Lenses",         false) +
+            link("experience.html",          "✦ Experiences",  active === "experience") +
+            link("about.html",               "About",          active === "about") +
           '</nav>' +
           '<div class="header-actions">' +
             '<a class="icon-btn" href="wishlist.html" aria-label="Wishlist">' + ICON_HEART + '<span class="count-badge" id="wish-count" hidden>0</span></a>' +
             '<a class="icon-btn" href="cart.html" aria-label="Cart">' + ICON_BAG + '<span class="count-badge" id="cart-count" hidden>0</span></a>' +
           '</div>' +
         '</div>' +
-        '<div class="mobile-nav-drawer" id="mobile-nav-drawer">' +
-          '<div class="mobile-nav-links">' +
-            mobileLink("index.html",               "🏠", "Home",          active === "home") +
-            mobileLink("shop.html",                "🛍️", "Shop All",      active === "shop") +
-            '<div class="mobile-nav-divider">Categories</div>' +
-            mobileLink("shop.html?cat=makeup",     "💄", "Makeup",        false) +
-            mobileLink("shop.html?cat=skincare",   "🧴", "Skincare",      false) +
-            mobileLink("shop.html?cat=accessories","💍", "Accessories",   false) +
-            mobileLink("shop.html?cat=nails",      "💅", "Nails",         false) +
-            mobileLink("shop.html?cat=hair",       "💇", "Hair",          false) +
-            mobileLink("shop.html?cat=lenses",     "👁️", "Lenses",        false) +
-            '<div class="mobile-nav-divider">More</div>' +
-            mobileLink("experience.html",          "✦",  "Experiences",   active === "experience") +
-            mobileLink("about.html",               "📖", "About",         active === "about") +
-          '</div>' +
-        '</div>' +
-        '<div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>' +
       '</header>';
 
     var toggle = document.getElementById("menu-toggle");
-    var drawer = document.getElementById("mobile-nav-drawer");
-    var backdrop = document.getElementById("mobile-nav-backdrop");
-
-    function openMenu() {
-      drawer.classList.add("open");
-      backdrop.classList.add("open");
-      toggle.setAttribute("aria-expanded", "true");
-      document.body.style.overflow = "hidden";
+    var nav = document.getElementById("main-nav");
+    if (toggle && nav) {
+      toggle.addEventListener("click", function () {
+        var open = nav.classList.toggle("mobile-open");
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      document.addEventListener("click", function (e) {
+        if (!el.contains(e.target)) {
+          nav.classList.remove("mobile-open");
+          toggle.setAttribute("aria-expanded", "false");
+        }
+      });
     }
-    function closeMenu() {
-      drawer.classList.remove("open");
-      backdrop.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
-      document.body.style.overflow = "";
-    }
-    if (toggle) toggle.addEventListener("click", function() {
-      drawer.classList.contains("open") ? closeMenu() : openMenu();
-    });
-    if (backdrop) backdrop.addEventListener("click", closeMenu);
     updateCounts();
   }
 
-  function mobileLink(href, icon, label, isActive) {
-    return '<a href="' + href + '" class="mobile-nav-link' + (isActive ? " active" : "") + '">' +
-      '<span class="mobile-nav-icon">' + icon + '</span>' + label + '</a>';
-  }
 
   function link(href, label, isActive) {
     return '<a href="' + href + '"' + (isActive ? ' class="active"' : '') + '>' + label + '</a>';

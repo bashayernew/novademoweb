@@ -82,12 +82,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   /* ── Render ───────────────────────────────────── */
   root.innerHTML =
-    '<div class="pdp">' +
+    '<div class="pdp-wrap">' +
 
-      '<div class="pdp-media" id="pdp-media-box" style="background:linear-gradient(135deg,' + p.grad[0] + ',' + p.grad[1] + ')">' +
+      /* Full-width image hero */
+      '<div class="pdp-img-hero" style="background:linear-gradient(135deg,' + p.grad[0] + ',' + p.grad[1] + ')">' +
         '<div id="pdp-art-wrap">' + window.productArt(p, initialHex) + '</div>' +
       '</div>' +
 
+      '<div class="pdp-body">' +
       '<div class="pdp-info">' +
         (p.badge ? '<div style="margin-bottom:10px"><span class="badge">' + p.badge + '</span></div>' : '') +
         '<p class="pdp-cat">' + window.categoryLabel(p.category) + '</p>' +
@@ -117,8 +119,9 @@ document.addEventListener("DOMContentLoaded", function () {
             '</ul></div>'
           : '') +
       '</div>' +
+      '</div>' +   /* close pdp-body */
 
-    '</div>';
+    '</div>';   /* close pdp-wrap */
 
   /* ── Interactions ─────────────────────────────── */
   var state = {
