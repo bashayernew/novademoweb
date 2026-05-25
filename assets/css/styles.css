@@ -236,6 +236,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.1; marg
 /* ---------- Footer ---------- */
 .site-footer { background: var(--ink); color: #d8cdc9; padding: 60px 0 30px; margin-top: 40px; }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 30px; }
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
 .site-footer .brand { color: #fff; }
 .site-footer h4 { font-family: var(--sans); font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; margin: 0 0 14px; }
 .site-footer a, .site-footer p { font-size: 14px; color: #c2b6b2; margin: 0 0 9px; }
@@ -419,4 +420,101 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.1; marg
   .cat-grid { grid-template-columns: 1fr; }
   .hero h1 { font-size: 28px; }
   .card-title { font-size: 13px; }
+}
+
+/* ============================================================
+   MOBILE NAV DRAWER
+   ============================================================ */
+.mobile-nav-drawer {
+  display: none;
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: 280px; max-width: 85vw;
+  background: #fff;
+  z-index: 200;
+  transform: translateX(-100%);
+  transition: transform .28s cubic-bezier(.4,0,.2,1);
+  overflow-y: auto;
+  box-shadow: 4px 0 24px rgba(0,0,0,.12);
+}
+.mobile-nav-drawer.open { transform: translateX(0); }
+.mobile-nav-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(33,27,30,.45);
+  z-index: 199;
+  opacity: 0;
+  transition: opacity .28s ease;
+}
+.mobile-nav-backdrop.open { opacity: 1; }
+.mobile-nav-links {
+  padding: 72px 0 32px;
+  display: flex; flex-direction: column;
+}
+.mobile-nav-link {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 24px;
+  font-size: 15px; font-weight: 500; color: #211b1e;
+  border-left: 3px solid transparent;
+  transition: .15s;
+}
+.mobile-nav-link:hover { background: #fbf7f4; }
+.mobile-nav-link.active { border-color: #b4536b; color: #b4536b; background: #fdf4f5; }
+.mobile-nav-icon { font-size: 18px; width: 24px; text-align: center; flex-shrink: 0; }
+.mobile-nav-divider {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: #9b8c90; padding: 16px 24px 6px;
+  border-top: 1px solid #f0e8e4; margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .mobile-nav-drawer { display: block; }
+  .mobile-nav-backdrop { display: block; }
+}
+@media (min-width: 769px) {
+  .mobile-nav-drawer { display: none !important; }
+  .mobile-nav-backdrop { display: none !important; }
+}
+
+/* ============================================================
+   FOOTER — responsive
+   ============================================================ */
+.footer-tagline { margin-top: 12px; max-width: 260px; font-size: 14px; color: #c2b6b2; }
+.footer-links-row { display: flex; flex-direction: column; }
+.footer-links-row a { font-size: 14px; color: #c2b6b2; margin: 0 0 9px; }
+.footer-links-row a:hover { color: #fff; }
+
+@media (max-width: 640px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  .footer-brand-col {
+    padding-bottom: 24px;
+    border-bottom: 1px solid #3a3033;
+    margin-bottom: 0;
+  }
+  .footer-links-col {
+    border-bottom: 1px solid #3a3033;
+  }
+  .footer-links-col h4,
+  .footer-newsletter-col h4 {
+    padding: 18px 0 0;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-links-col h4::after { content: "+"; font-size: 18px; font-weight: 400; color: #9b8f8b; }
+  .footer-links-row { display: none; padding-bottom: 16px; }
+  .footer-links-col.open .footer-links-row { display: flex; }
+  .footer-links-col.open h4::after { content: "−"; }
+  .footer-newsletter-col { padding-top: 18px; }
+  .footer-tagline { max-width: 100%; }
+  .newsletter { flex-direction: column; gap: 10px; }
+  .newsletter input { width: 100%; box-sizing: border-box; }
+  .newsletter .btn { width: 100%; padding: 13px; }
+  .footer-bottom { margin-top: 24px; font-size: 11px; }
+  .site-footer { padding: 28px 0 20px; }
+}
+
+@media (max-width: 640px) {
+  .site-footer .container { padding: 0 18px; }
 }
