@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumé Beauty — Clean Beauty, Made Luminous</title>
+  <meta name="description" content="Lumé Beauty — modern clean makeup, skincare, accessories, nails, hair colour and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="home">
+  <div id="site-header"></div>
+
+  <section class="hero">
+    <div class="container hero-content">
+      <p class="eyebrow">New · The Sun-Kissed Edit</p>
+      <h1>Clean beauty, made luminous.</h1>
+      <p>Skin-loving formulas, considered shades, and the little extras that finish the look.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn btn-primary" href="shop.html">Shop the collection</a>
+        <a class="btn btn-outline" href="experience.html">Explore experiences</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Shop by category</h2>
+        <p>Everything for a complete look — makeup, skincare, accessories, nails, hair colour, and lenses.</p>
+      </div>
+      <div class="cat-grid" id="cat-grid"></div>
+    </div>
+  </section>
+
+  <section class="section alt-bg">
+    <div class="container">
+      <div class="section-head">
+        <h2>Loved by everyone</h2>
+        <p>Our most-wanted pieces, back in stock and ready to glow.</p>
+      </div>
+      <div class="product-grid" id="bestsellers"></div>
+      <div class="center" style="margin-top:38px"><a class="btn btn-outline" href="shop.html">View all products</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cat-grid" style="grid-template-columns:repeat(3,1fr);text-align:center">
+        <div><h3 style="font-size:22px;margin-bottom:8px">Clean formulas</h3><p class="muted">Vegan, cruelty-free, and free from the nasties — every single time.</p></div>
+        <div><h3 style="font-size:22px;margin-bottom:8px">Made for real light</h3><p class="muted">Shades and finishes tested on real skin, in real daylight.</p></div>
+        <div><h3 style="font-size:22px;margin-bottom:8px">Thoughtfully packed</h3><p class="muted">Recyclable packaging and carbon-neutral shipping, as standard.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt-bg">
+    <div class="container">
+      <div class="section-head"><h2>New this season</h2><p>Fresh drops to refresh your routine.</p></div>
+      <div class="product-grid" id="new-arrivals"></div>
+    </div>
+  </section>
+
+  <section class="brand-cta" style="margin-top:0">
+    <div class="container">
+      <p class="exp-eyebrow" style="color:var(--gold)">AR · AI · 3D</p>
+      <h2>Try it before you buy it.</h2>
+      <p>Virtual try-on, AI skin analysis, face reading, smart mirror, 3D product view and more — every experience we offer, designed to make beauty personal.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+        <a class="btn btn-primary" href="experience.html">Explore All Experiences</a>
+        <a class="btn" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.3)" href="shop.html">Shop the Collection</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/art.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/home.js"></script>
+</body>
+</html>
