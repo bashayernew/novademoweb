@@ -126,6 +126,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.1; marg
 .product-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
 .card { background: var(--bg-card); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: .22s; position: relative; }
 .card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+.card-body { padding: 12px 14px 16px; }
 .card-media { position: relative; aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .card-media .mono { font-family: var(--serif); font-size: 64px; color: rgba(255,255,255,.92); font-weight: 600; }
 .art { display: block; }
@@ -177,11 +178,15 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.1; marg
 
 /* ---------- Toolbar (shop) ---------- */
 .shop-head { padding: 44px 0 10px; }
-.toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 30px; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.toolbar { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+.toolbar-bottom { display: flex; gap: 10px; align-items: center; }
+.chips { display: flex; flex-wrap: nowrap; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px; }
 .chip { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 8px 16px; font-size: 13px; cursor: pointer; transition: .15s; }
 .chip.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex-shrink: 0; }
 .tools-right { display: flex; gap: 10px; }
+.toolbar-bottom { display: flex; gap: 10px; align-items: center; }
 .input, select.input { border: 1px solid var(--line); border-radius: 999px; padding: 10px 16px; font-family: var(--sans); font-size: 14px; background: #fff; color: var(--ink); }
 
 /* ---------- Cart / tables ---------- */
@@ -353,10 +358,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.1; marg
   .btn-tryon { padding: 9px 16px; font-size: 12px; }
 
   /* Shop toolbar */
-  .toolbar { flex-direction: column; align-items: stretch; gap: 10px; }
-  .chips { gap: 6px; }
-  .chip { padding: 7px 12px; font-size: 12px; }
-  .tools-right { justify-content: space-between; }
+  .chip { padding: 7px 14px; font-size: 12px; }
+  .toolbar-bottom { gap: 8px; }
+  .input, select.input { font-size: 13px; }
   .input, select.input { padding: 9px 14px; font-size: 13px; }
   .shop-head { padding: 24px 0 8px; }
 
