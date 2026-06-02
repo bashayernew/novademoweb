@@ -22,13 +22,15 @@
   }
 
   window.productCardHTML = function (p) {
-    var href = "product.html?id=" + encodeURIComponent(p.id) + "#" + encodeURIComponent(p.id);
+    var href = "product?id=" + encodeURIComponent(p.id) + "#" + encodeURIComponent(p.id);
     var badge = p.badge ? '<span class="card-badge">' + p.badge + "</span>" : "";
     return (
       '<article class="card" data-id="' + p.id + '">' +
         '<a class="card-link" href="' + href + '">' +
           '<div class="card-media" style="' + media(p.grad) + '">' +
-            window.productMedia(p) + badge +
+            window.productMedia(p) +
+            (p.image ? '<img class="card-photo" src="' + p.image + '" alt="" loading="lazy" onerror="this.remove()" />' : '') +
+            badge +
           "</div>" +
           '<div class="card-body">' +
             '<span class="card-cat">' + window.categoryLabel(p.category) + "</span>" +

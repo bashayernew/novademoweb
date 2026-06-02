@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (cg) {
     cg.innerHTML = window.CATEGORIES.map(function (c) {
       return (
-        '<a class="cat-tile" href="shop.html?cat=' + c.key + '" ' +
+        '<a class="cat-tile" href="shop?cat=' + c.key + '" ' +
         'style="background:linear-gradient(135deg,' + c.grad[0] + "," + c.grad[1] + ')">' +
           '<div class="cat-body"><h3>' + c.label + "</h3>" +
           '<div class="cat-link">Shop now →</div></div>' +

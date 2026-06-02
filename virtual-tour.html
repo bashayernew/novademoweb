@@ -155,11 +155,11 @@
     }
     function gotoStation(area) {
       var urls = {
-        makeup: "shop.html?cat=makeup", skincare: "shop.html?cat=skincare",
-        accessories: "shop.html?cat=accessories", nails: "shop.html?cat=nails",
-        hair: "shop.html?cat=hair", lenses: "shop.html?cat=lenses",
-        mirror: "experience.html", looks: "shop.html?cat=looks",
-        assistant: "experience.html#assistant-chat"
+        makeup: "shop?cat=makeup", skincare: "shop?cat=skincare",
+        accessories: "shop?cat=accessories", nails: "shop?cat=nails",
+        hair: "shop?cat=hair", lenses: "shop?cat=lenses",
+        mirror: "shop?cat=looks", looks: "shop?cat=looks",
+        assistant: "shop?cat=looks"
       };
       if (urls[area]) location.href = urls[area];
     }

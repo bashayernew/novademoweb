@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=10" />
 </head>
 <body data-page="shop">
   <div id="site-header"></div>
@@ -20,7 +20,22 @@
     </div>
 
     <div class="toolbar">
-      <div class="chips" id="chips"></div>
+      <div class="subchips-wrap" id="subchips-wrap" hidden>
+        <p class="subchips-label" id="subchips-label"></p>
+        <div class="chips subchips" id="subchips"></div>
+      </div>
+      <div class="subchips-wrap" id="subsubchips-wrap" hidden>
+        <p class="subchips-label" id="subsubchips-label"></p>
+        <div class="chips subchips" id="subsubchips"></div>
+      </div>
+      <div class="subchips-wrap" id="subsub2chips-wrap" hidden>
+        <p class="subchips-label" id="subsub2chips-label"></p>
+        <div class="chips subchips" id="subsub2chips"></div>
+      </div>
+      <div class="subchips-wrap" id="subsub3chips-wrap" hidden>
+        <p class="subchips-label" id="subsub3chips-label"></p>
+        <div class="chips subchips" id="subsub3chips"></div>
+      </div>
       <div class="toolbar-bottom">
         <input class="input" id="search" type="search" placeholder="Search products…" style="flex:1" />
         <select class="input" id="sort">
@@ -43,10 +58,10 @@
   <div style="height:40px"></div>
   <div id="site-footer"></div>
 
-  <script src="assets/js/data.js"></script>
-  <script src="assets/js/store.js"></script>
-  <script src="assets/js/art.js"></script>
-  <script src="assets/js/ui.js"></script>
-  <script src="assets/js/shop.js"></script>
+  <script src="assets/js/data.js?v=10"></script>
+  <script src="assets/js/store.js?v=10"></script>
+  <script src="assets/js/art.js?v=10"></script>
+  <script src="assets/js/ui.js?v=10"></script>
+  <script src="assets/js/shop.js?v=10"></script>
 </body>
 </html>

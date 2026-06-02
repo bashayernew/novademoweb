@@ -88,13 +88,37 @@ function initProductPage() {
   var initialHex = (isShade && p.options[0] && typeof p.options[0] === "object" && p.options[0].hex)
     ? p.options[0].hex : null;
 
+  /* ── Shop-the-Look: resolve component products ── */
+  var lookItems = Array.isArray(p.products)
+    ? p.products.map(function (id) { return window.findProduct(id); }).filter(Boolean)
+    : [];
+  var isLook = lookItems.length > 0;
+  var HOTSPOT_POS = [
+    { top: "20%", left: "32%" }, { top: "34%", left: "66%" }, { top: "52%", left: "26%" },
+    { top: "64%", left: "60%" }, { top: "28%", left: "50%" }, { top: "46%", left: "42%" },
+    { top: "78%", left: "38%" }, { top: "16%", left: "62%" }
+  ];
+  var hotspotById = {};
+  (p.hotspots || []).forEach(function (h) { hotspotById[h.id] = h; });
+  var hotspotsHTML = isLook
+    ? '<div class="look-hotspots">' + lookItems.map(function (it, i) {
+        var pos = hotspotById[it.id] || HOTSPOT_POS[i % HOTSPOT_POS.length];
+        return '<button class="hotspot" data-idx="' + i + '" style="top:' + pos.top + ';left:' + pos.left + '" aria-label="' + it.name + '">' + (i + 1) + '</button>';
+      }).join("") + '</div>'
+    : "";
+
   /* ── Render ───────────────────────────────────── */
   root.innerHTML =
     '<div class="pdp-wrap">' +
 
       /* Full-width image hero */
-      '<div class="pdp-img-hero" style="background:linear-gradient(135deg,' + p.grad[0] + ',' + p.grad[1] + ')">' +
-        '<div id="pdp-art-wrap">' + window.productArt(p, initialHex) + '</div>' +
+      '<div class="pdp-img-hero' + (p.image && isLook ? ' pdp-img-hero--photo' : '') + '" style="background:linear-gradient(135deg,' + p.grad[0] + ',' + p.grad[1] + ')">' +
+        (p.image && isLook
+          ? '<img class="pdp-look-img" src="' + p.image + '" alt="' + p.name + '"' + (p.fallbackImage ? ' onerror="this.onerror=null;this.src=\'' + p.fallbackImage + '\'"' : '') + ' />'
+          : (p.image
+              ? '<div id="pdp-art-wrap">' + window.productArt(p, initialHex) + '</div><img class="pdp-photo-overlay" src="' + p.image + '" alt="' + p.name + '" onerror="this.remove()" />'
+              : '<div id="pdp-art-wrap">' + window.productArt(p, initialHex) + '</div>')) +
+        hotspotsHTML +
       '</div>' +
 
       '<div class="pdp-body">' +
@@ -200,6 +224,76 @@ function initProductPage() {
     btnTryon.addEventListener("click", function() {
       window.Lume.toast("Virtual try-on launching — SDK integration coming soon.");
     });
+  }
+
+  /* ── Shop the Look ────────────────────────────── */
+  function defaultOption(it) {
+    if (!it.options || !it.options.length) return "";
+    var o = it.options[0];
+    return typeof o === "object" ? o.name : o;
+  }
+  if (isLook) {
+    var lookSection = document.getElementById("look-section");
+    var lookShop = document.getElementById("look-shop");
+    var lookTotal = lookItems.reduce(function (s, it) { return s + it.price; }, 0);
+    if (lookSection && lookShop) {
+      lookShop.innerHTML =
+        '<div class="look-shop-head">' +
+          '<div><h2>Shop the Look</h2><p class="muted">' + lookItems.length + ' pieces — tap a number on the image to find each one.</p></div>' +
+          '<button class="btn btn-primary" id="look-add-all">Add all to bag · ' + window.Lume.money(lookTotal) + '</button>' +
+        '</div>' +
+        '<div class="look-items">' +
+          lookItems.map(function (it, i) {
+            return '<div class="look-item" id="look-item-' + i + '">' +
+              '<a class="look-item-media" href="product?id=' + encodeURIComponent(it.id) + '" style="background:linear-gradient(135deg,' + it.grad[0] + ',' + it.grad[1] + ')">' +
+                '<span class="look-item-num">' + (i + 1) + '</span>' + window.productMedia(it) +
+              '</a>' +
+              '<div class="look-item-info">' +
+                '<span class="look-item-cat">' + window.categoryLabel(it.category) + '</span>' +
+                '<a class="look-item-name" href="product?id=' + encodeURIComponent(it.id) + '">' + it.name + '</a>' +
+                '<div class="look-item-price">' + window.Lume.money(it.price) + '</div>' +
+              '</div>' +
+              '<button class="btn btn-line look-add" data-id="' + it.id + '" data-idx="' + i + '">Add</button>' +
+            '</div>';
+          }).join("") +
+        '</div>';
+      lookSection.hidden = false;
+
+      /* highlight helper */
+      function flashItem(i) {
+        var card = document.getElementById("look-item-" + i);
+        if (!card) return;
+        card.scrollIntoView({ behavior: "smooth", block: "center" });
+        card.classList.add("flash");
+        setTimeout(function () { card.classList.remove("flash"); }, 1200);
+      }
+
+      /* hotspots → highlight the matching item */
+      document.querySelectorAll(".look-hotspots .hotspot").forEach(function (hs) {
+        hs.addEventListener("click", function () {
+          flashItem(parseInt(hs.getAttribute("data-idx"), 10));
+        });
+      });
+
+      /* per-item add */
+      lookShop.querySelectorAll(".look-add").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var it = window.findProduct(btn.getAttribute("data-id"));
+          if (!it) return;
+          window.Lume.addToCart(it.id, defaultOption(it), 1);
+          window.Lume.toast(it.name + " added to your bag ✓");
+        });
+      });
+
+      /* add all */
+      var addAll = document.getElementById("look-add-all");
+      if (addAll) {
+        addAll.addEventListener("click", function () {
+          lookItems.forEach(function (it) { window.Lume.addToCart(it.id, defaultOption(it), 1); });
+          window.Lume.toast("All " + lookItems.length + " pieces added to your bag ✓");
+        });
+      }
+    }
   }
 
   /* Related products */

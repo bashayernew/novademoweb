@@ -60,7 +60,8 @@
   var ICON_MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="24" height="24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
   window.ICON_HEART = ICON_HEART;
 
-  function renderHeader(active) {
+  function renderHeader(active, cat) {
+    cat = cat || "";
     var el = document.getElementById("site-header");
     if (!el) return;
     el.innerHTML =
@@ -71,14 +72,16 @@
           '<a class="brand" href="index.html">lumé<span>.</span></a>' +
           '<nav class="nav" id="main-nav">' +
             link("index.html",               "Home",           active === "home") +
-            link("shop.html",                "Shop All",       active === "shop") +
-            link("shop.html?cat=makeup",     "Makeup",         false) +
-            link("shop.html?cat=skincare",   "Skincare",       false) +
-            link("shop.html?cat=accessories","Accessories",    false) +
-            link("shop.html?cat=nails",      "Nails",          false) +
-            link("shop.html?cat=hair",       "Hair",           false) +
-            link("shop.html?cat=lenses",     "Lenses",         false) +
-            link("experience.html",          "✦ Experiences",  active === "experience") +
+            link("shop.html",                "Shop All",       active === "shop" && !cat) +
+            link("shop?cat=makeup",     "Makeup",         cat === "makeup") +
+            link("shop?cat=skincare",   "Skincare",       cat === "skincare") +
+            link("shop?cat=accessories","Accessories",    cat === "accessories") +
+            link("shop?cat=nails",      "Nails",          cat === "nails") +
+            link("shop?cat=hair",       "Hair",           cat === "hair") +
+            link("shop?cat=lenses",     "Lenses",         cat === "lenses") +
+            link("shop?cat=looks",      "Curated Looks",  cat === "looks") +
+            link("shop?cat=fragrances", "Fragrances",     cat === "fragrances") +
+            link("shop?cat=house",      "House",          cat === "house") +
             link("about.html",               "About",          active === "about") +
           '</nav>' +
           '<div class="header-actions">' +
@@ -130,20 +133,22 @@
           '<div class="footer-links-col">' +
             '<h4>Shop</h4>' +
             '<div class="footer-links-row">' +
-              '<a href="shop.html?cat=makeup">Makeup</a>' +
-              '<a href="shop.html?cat=skincare">Skincare</a>' +
-              '<a href="shop.html?cat=accessories">Accessories</a>' +
-              '<a href="shop.html?cat=nails">Nails</a>' +
-              '<a href="shop.html?cat=hair">Hair Colour</a>' +
-              '<a href="shop.html?cat=lenses">Eye Lenses</a>' +
-              '<a href="shop.html?cat=looks">Curated Looks</a>' +
+              '<a href="shop?cat=makeup">Makeup</a>' +
+              '<a href="shop?cat=skincare">Skincare</a>' +
+              '<a href="shop?cat=accessories">Accessories</a>' +
+              '<a href="shop?cat=nails">Nails</a>' +
+              '<a href="shop?cat=hair">Hair Colour</a>' +
+              '<a href="shop?cat=lenses">Eye Lenses</a>' +
+              '<a href="shop?cat=looks">Curated Looks</a>' +
+              '<a href="shop?cat=fragrances">Fragrances</a>' +
+              '<a href="shop?cat=house">House</a>' +
             '</div>' +
           '</div>' +
 
           '<div class="footer-links-col">' +
             '<h4>Explore</h4>' +
             '<div class="footer-links-row">' +
-              '<a href="experience.html">Beauty Experiences</a>' +
+              '<a href="shop?cat=looks">Curated Looks</a>' +
               '<a href="virtual-tour.html">Virtual Store Tour</a>' +
               '<a href="about.html">Our Story</a>' +
               '<a href="#">Shipping &amp; Returns</a>' +
@@ -201,7 +206,9 @@
   };
 
   document.addEventListener("DOMContentLoaded", function () {
-    renderHeader(document.body.getAttribute("data-page") || "");
+    var page = document.body.getAttribute("data-page") || "";
+    var cat = new URLSearchParams(location.search).get("cat") || "";
+    renderHeader(page, cat);
     renderFooter();
   });
 })();
