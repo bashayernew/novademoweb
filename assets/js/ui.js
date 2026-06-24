@@ -24,6 +24,9 @@
   window.productCardHTML = function (p) {
     var href = "product?id=" + encodeURIComponent(p.id) + "#" + encodeURIComponent(p.id);
     var badge = p.badge ? '<span class="card-badge">' + p.badge + "</span>" : "";
+    var tryon = (window.NovagatesTryOn && window.NovagatesTryOn.canTryOn && window.NovagatesTryOn.canTryOn(p))
+      ? '<button class="card-tryon" type="button" data-tryon="' + p.id + '" aria-label="Try on ' + p.name + '">Try On</button>'
+      : "";
     return (
       '<article class="card" data-id="' + p.id + '">' +
         '<a class="card-link" href="' + href + '">' +
@@ -31,6 +34,7 @@
             window.productMedia(p) +
             (p.image ? '<img class="card-photo" src="' + p.image + '" alt="" loading="lazy" onerror="this.remove()" />' : '') +
             badge +
+            tryon +
           "</div>" +
           '<div class="card-body">' +
             '<span class="card-cat">' + window.categoryLabel(p.category) + "</span>" +
@@ -63,6 +67,12 @@
         var added = window.Lume.toggleWishlist(id);
         btn.classList.toggle("active", added);
         window.Lume.toast(added ? "Added to wishlist" : "Removed from wishlist");
+      });
+    });
+    container.querySelectorAll(".card-tryon").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault(); e.stopPropagation();
+        if (window.NovagatesTryOn) window.NovagatesTryOn.openById(btn.getAttribute("data-tryon"));
       });
     });
   };

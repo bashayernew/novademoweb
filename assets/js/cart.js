@@ -28,6 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
             (l.option ? '<div class="opt">' + l.option + "</div>" : "") +
             '<div class="opt">' + window.Lume.money(p.price) + " each</div>" +
             '<button class="link-danger" data-remove>Remove</button>' +
+            ((window.NovagatesTryOn && window.NovagatesTryOn.canTryOn && window.NovagatesTryOn.canTryOn(p))
+              ? '<button data-tryon style="background:none;border:none;color:#1c1216;font-weight:600;cursor:pointer;padding:0;margin-left:14px;text-decoration:underline">Try On</button>'
+              : "") +
           "</div>" +
           '<div style="text-align:right">' +
             '<div class="qty" style="margin-bottom:8px"><button data-dec aria-label="Decrease">−</button><span>' + l.qty + '</span><button data-inc aria-label="Increase">+</button></div>' +
@@ -67,6 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       row.querySelector("[data-remove]").addEventListener("click", function () {
         window.Lume.removeFromCart(id, opt); window.Lume.toast("Removed from bag"); render();
+      });
+      var tbtn = row.querySelector("[data-tryon]");
+      if (tbtn) tbtn.addEventListener("click", function () {
+        if (window.NovagatesTryOn) window.NovagatesTryOn.openById(id);
       });
     });
   }
