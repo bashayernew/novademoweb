@@ -370,6 +370,11 @@
 
   function open(p, opts) {
     if (!p) return;
+    // Full-page try-on (no popup): open the dedicated try-on page so the
+    // experience appears as a normal page within the site. The modal code
+    // below is retained but intentionally bypassed.
+    window.location.href = "tryon.html?id=" + encodeURIComponent(p.id);
+    return;
     opts = opts || {};
     var modal = ensureModal();
     var title = document.getElementById("ng-modal-title");
@@ -420,8 +425,8 @@
   }
 
   function openById(id) {
-    var p = window.findProduct ? window.findProduct(id) : null;
-    if (p) open(p);
+    // Full-page try-on (no popup): open as a normal page within the site.
+    if (id != null && id !== "") window.location.href = "tryon.html?id=" + encodeURIComponent(id);
   }
 
   window.NovagatesTryOn = {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Try-On — Lumé Beauty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=10" />
+  <style>
+    .tryon-page { padding: 24px 0 64px; }
+    .tryon-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+    .tryon-head h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; margin: 0; }
+    .tryon-back { display: inline-flex; align-items: center; gap: 6px; color: #7a6e72; text-decoration: none; font-weight: 600; }
+    .tryon-back:hover { color: #1c1216; }
+    #novagates-container { width: 100%; min-height: 72vh; border: 1px solid #eee; border-radius: 16px; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; }
+    .tryon-msg { padding: 48px; text-align: center; color: #cfc9cb; max-width: 560px; line-height: 1.7; font-size: 15px; }
+    .tryon-msg a { color: #e7b86b; }
+  </style>
+</head>
+<body data-page="shop">
+  <div id="site-header"></div>
+
+  <div class="container tryon-page">
+    <div class="tryon-head">
+      <h1 id="tryon-title">Virtual Try-On</h1>
+      <a class="tryon-back" id="tryon-back" href="shop.html">&larr; Back to product</a>
+    </div>
+    <div id="novagates-container">
+      <div class="tryon-msg">Loading the try-on…</div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/data.js?v=10"></script>
+  <script src="assets/js/store.js?v=10"></script>
+  <script src="assets/js/novagates.js?v=7"></script>
+  <script src="assets/js/tryon.js?v=1"></script>
+</body>
+</html>
